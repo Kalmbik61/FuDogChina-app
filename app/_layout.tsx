@@ -1,23 +1,27 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useFonts } from "expo-font";
+import { SplashScreen } from "expo-router";
+import { useEffect } from "react";
+import { COLORS } from "../constants/Colors";
+import { Drawer } from "expo-router/drawer";
+import { ROUTS } from "../utils/routesNames";
+import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
-} from 'expo-router';
+} from "expo-router";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: "(stack)",
 };
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
 
@@ -36,16 +40,47 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
-    <>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        </Stack>
-      </ThemeProvider>
-    </>
+    <Drawer
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: COLORS.primary,
+        },
+        headerShadowVisible: false,
+        headerTintColor: "#fff",
+        drawerActiveBackgroundColor: COLORS.primary,
+        drawerContentContainerStyle: { backgroundColor: COLORS.darkBg },
+        drawerStyle: {
+          backgroundColor: COLORS.darkBg,
+        },
+        drawerLabelStyle: { color: "#FFF" },
+        headerRight: ({ tintColor }) => (
+          <TouchableOpacity>
+            <AntDesign
+              name='shoppingcart'
+              size={24}
+              color={tintColor}
+              style={{ marginRight: 20 }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
+    >
+      <Drawer.Screen
+        name='(stack)'
+        options={{
+          title: "Menu",
+          headerTitle: "Fu dog",
+        }}
+      />
+      <Drawer.Screen
+        name={ROUTS.CONTACTS}
+        options={{
+          title: "Contacts",
+          headerTitle: "Contacts",
+          drawerLabel: "Contacts",
+        }}
+      />
+    </Drawer>
   );
 }
