@@ -4,11 +4,14 @@ import { IMealProps } from "./Meal.props";
 import { stylesOf } from "classnames-rn";
 import styles from "./Meal.styles";
 import Button from "../../global/Button/Button";
+import { useMealControl } from "./useMeal.control";
 
 const cn = stylesOf(styles);
 
 export default function Meal({ ...props }: IMealProps) {
-  const { imageUrl, name, price, additional, type: types } = props;
+  const { imageUrl, name, price, additional, type } = props;
+
+  const control = useMealControl(props);
 
   const renderPrice = () => {
     if (additional) {
@@ -18,7 +21,7 @@ export default function Meal({ ...props }: IMealProps) {
   };
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={control.toMealDetails}>
       <View style={cn("wrapper")}>
         <View style={cn("imageWrapper")}>
           <Image

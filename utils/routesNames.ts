@@ -1,5 +1,7 @@
 export enum ROUTS {
-  MENU = "index",
+  MENU = "/",
   CONTACTS = "contacts",
   MEAL_DETAILS = "mealDetails",
+  CART = "cart",
+  ADDITIONAL_MODAL_PICKER = "additionalModalPicker",
 }

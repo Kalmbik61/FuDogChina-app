@@ -1,11 +1,10 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { SplashScreen } from "expo-router";
+import { SplashScreen, useRouter, usePathname, Link } from "expo-router";
 import { useEffect } from "react";
 import { COLORS } from "../constants/Colors";
 import { Drawer } from "expo-router/drawer";
 import { ROUTS } from "../utils/routesNames";
-import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
@@ -40,6 +39,15 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const path = usePathname();
+  const router = useRouter();
+
+  const drawerHandlerLock = () => {
+    if (path !== ROUTS.MENU && path !== `/${ROUTS.CONTACTS}`) {
+      return true;
+    } else return false;
+  };
+
   return (
     <Drawer
       screenOptions={{
@@ -54,15 +62,19 @@ function RootLayoutNav() {
           backgroundColor: COLORS.darkBg,
         },
         drawerLabelStyle: { color: "#FFF" },
+        swipeEnabled: !drawerHandlerLock(),
+        headerLeft: drawerHandlerLock() ? () => <></> : undefined,
         headerRight: ({ tintColor }) => (
-          <TouchableOpacity>
-            <AntDesign
-              name='shoppingcart'
-              size={24}
-              color={tintColor}
-              style={{ marginRight: 20 }}
-            />
-          </TouchableOpacity>
+          <Link href={ROUTS.CART} asChild>
+            <TouchableOpacity>
+              <AntDesign
+                name='shoppingcart'
+                size={24}
+                color={tintColor}
+                style={{ marginRight: 20 }}
+              />
+            </TouchableOpacity>
+          </Link>
         ),
       }}
     >

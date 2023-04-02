@@ -16,13 +16,14 @@ export interface IMeal {
   readonly price: number;
   readonly type: TYPE_OF_MEAL;
   readonly additional?: IAdditional[];
+  readonly description?: string;
 }
 
 interface IHomeControl {
   readonly meals: IMeal[];
 }
 
-const MOCK: IMeal[] = [
+export const MOCK: IMeal[] = [
   {
     id: "1",
     imageUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
@@ -30,6 +31,8 @@ const MOCK: IMeal[] = [
     price: 480,
     type: TYPE_OF_MEAL.MEAT,
     additional: [{ курица: 380 }, { говядина: 480 }],
+    description:
+      "Блюдо было придумано в 1907 году харбинским поваром Чжэн Вэнем для русских, в большом количестве приезжавших в город в связи со строительством Китайско-Восточной железной дороги. Идею блюда подала его жена, русская по национальности. За основу было взято пекинское блюдо «жареные ломтики свинины», в которое повар добавил сахар, изменив вкус блюда с солёного на сладкий, чтобы оно лучше соответствовало вкусам русских гостей",
   },
   {
     id: "2",
