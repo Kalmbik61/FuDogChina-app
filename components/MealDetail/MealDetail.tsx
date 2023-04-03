@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  Image,
+  ImageStyle,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { IMealDetailProps } from "./MealDetail.props";
 import { useMealDetailsControl } from "./useMealDetail.control";
 import Loader from "../global/Loader/Loader";
@@ -8,6 +15,7 @@ import { stylesOf } from "classnames-rn";
 import logo from "../../assets/icons/logo.png";
 import Button from "../global/Button/Button";
 import { COLORS } from "../../constants/Colors";
+import ModalAdditional from "../modals/ModalAdditional";
 
 const cn = stylesOf(styles);
 
@@ -20,7 +28,11 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
     return (
       <View style={cn("errorWrapper")}>
         <View style={cn("errorImageContainer")}>
-          <Image source={logo} style={cn("errorImage")} resizeMode='contain' />
+          <Image
+            source={logo}
+            style={cn("errorImage") as ImageStyle}
+            resizeMode='contain'
+          />
         </View>
 
         <Text style={cn("error")}>Нет описания</Text>
@@ -49,11 +61,20 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
         />
       }
     >
+      {control.details.additional && (
+        <ModalAdditional
+          show={control.modalShow}
+          onCloseModal={() => control.onModalHandler(false)}
+          onSelectValue={() => {}}
+          additional={control.details.additional}
+        />
+      )}
+
       <View style={cn("imageWrapper")}>
         <Image
           source={{ uri: control.details?.imageUrl }}
           resizeMode='cover'
-          style={cn("image")}
+          style={cn("image") as ImageStyle}
         />
       </View>
 
@@ -90,7 +111,7 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
         </Picker>
       )} */}
 
-      <Button onPress={control.toSelectAddtionalModal} primary>
+      <Button onPress={() => control.onModalHandler(true)} primary>
         Выбрать
       </Button>
 

@@ -7,6 +7,8 @@ import { Drawer } from "expo-router/drawer";
 import { ROUTS } from "../utils/routesNames";
 import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "../store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,50 +51,52 @@ function RootLayoutNav() {
   };
 
   return (
-    <Drawer
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: COLORS.primary,
-        },
-        headerShadowVisible: false,
-        headerTintColor: "#fff",
-        drawerActiveBackgroundColor: COLORS.primary,
-        drawerContentContainerStyle: { backgroundColor: COLORS.darkBg },
-        drawerStyle: {
-          backgroundColor: COLORS.darkBg,
-        },
-        drawerLabelStyle: { color: "#FFF" },
-        swipeEnabled: !drawerHandlerLock(),
-        headerLeft: drawerHandlerLock() ? () => <></> : undefined,
-        headerRight: ({ tintColor }) => (
-          <Link href={ROUTS.CART} asChild>
-            <TouchableOpacity>
-              <AntDesign
-                name='shoppingcart'
-                size={24}
-                color={tintColor}
-                style={{ marginRight: 20 }}
-              />
-            </TouchableOpacity>
-          </Link>
-        ),
-      }}
-    >
-      <Drawer.Screen
-        name='(stack)'
-        options={{
-          title: "Menu",
-          headerTitle: "Fu dog",
+    <Provider store={store}>
+      <Drawer
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerShadowVisible: false,
+          headerTintColor: "#fff",
+          drawerActiveBackgroundColor: COLORS.primary,
+          drawerContentContainerStyle: { backgroundColor: COLORS.darkBg },
+          drawerStyle: {
+            backgroundColor: COLORS.darkBg,
+          },
+          drawerLabelStyle: { color: "#FFF" },
+          swipeEnabled: !drawerHandlerLock(),
+          headerLeft: drawerHandlerLock() ? () => <></> : undefined,
+          headerRight: ({ tintColor }) => (
+            <Link href={ROUTS.CART} asChild>
+              <TouchableOpacity>
+                <AntDesign
+                  name='shoppingcart'
+                  size={24}
+                  color={tintColor}
+                  style={{ marginRight: 20 }}
+                />
+              </TouchableOpacity>
+            </Link>
+          ),
         }}
-      />
-      <Drawer.Screen
-        name={ROUTS.CONTACTS}
-        options={{
-          title: "Contacts",
-          headerTitle: "Contacts",
-          drawerLabel: "Contacts",
-        }}
-      />
-    </Drawer>
+      >
+        <Drawer.Screen
+          name='(stack)'
+          options={{
+            title: "Menu",
+            headerTitle: "Fu dog",
+          }}
+        />
+        <Drawer.Screen
+          name={ROUTS.CONTACTS}
+          options={{
+            title: "Contacts",
+            headerTitle: "Contacts",
+            drawerLabel: "Contacts",
+          }}
+        />
+      </Drawer>
+    </Provider>
   );
 }

@@ -1,11 +1,11 @@
-import { Stack } from "expo-router";
-import React from "react";
-import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native";
+import Cart from "../../components/Cart/Cart";
+import { COLORS } from "../../constants/Colors";
 
-export default function Cart() {
+export default function CartScreen() {
   return (
-    <View>
-      <Text>CART</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.mainBg }}>
+      <Cart />
+    </SafeAreaView>
   );
 }

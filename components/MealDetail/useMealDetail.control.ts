@@ -1,24 +1,23 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { IMeal, MOCK } from "../Home/useHome.control";
 import { IMealDetailProps } from "./MealDetail.props";
-import { useNavigation, useRouter } from "expo-router";
-import { ROUTS } from "../../utils/routesNames";
+import { useNavigation } from "expo-router";
 
 interface IMealDetailsControl {
   readonly details?: IMeal;
   readonly loading: boolean;
   readonly refresh: boolean;
   readonly selectedAdditional?: { [key: string]: number };
+  readonly modalShow: boolean;
 
   onRefresh(): void;
   onSelectedAdditional(a: string, i: number): void;
-  toSelectAddtionalModal(): void;
+  onModalHandler(s: boolean): void;
 }
 
 export const useMealDetailsControl = (
   props: IMealDetailProps
 ): IMealDetailsControl => {
-  const router = useRouter();
   const { setOptions } = useNavigation();
   const [details, setDetails] = useState<IMeal>();
   const [loading, setLoading] = useState(true);
@@ -26,6 +25,7 @@ export const useMealDetailsControl = (
   const [selectedAdditional, setSelectedAdditional] = useState<
     { [key: string]: number } | undefined
   >();
+  const [modalShow, setModalShow] = useState<boolean>(false);
 
   const getMealDetails = () => {
     const meal = MOCK.find((m) => m.id === props.id);
@@ -60,8 +60,8 @@ export const useMealDetailsControl = (
     setSelectedAdditional(details.additional[i]);
   };
 
-  const toSelectAddtionalModal = () => {
-    router.push(ROUTS.ADDITIONAL_MODAL_PICKER);
+  const onModalHandler = (s: boolean) => {
+    setModalShow(s);
   };
 
   return {
@@ -69,9 +69,10 @@ export const useMealDetailsControl = (
     loading,
     refresh,
     selectedAdditional,
+    modalShow,
 
     onRefresh,
     onSelectedAdditional,
-    toSelectAddtionalModal,
+    onModalHandler,
   };
 };
