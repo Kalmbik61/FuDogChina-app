@@ -9,6 +9,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "../store";
+import CartIcon from "../components/global/CartIcon/CartIcon";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,7 +50,6 @@ function RootLayoutNav() {
       return true;
     } else return false;
   };
-
   return (
     <Provider store={store}>
       <Drawer
@@ -67,25 +67,17 @@ function RootLayoutNav() {
           drawerLabelStyle: { color: "#FFF" },
           swipeEnabled: !drawerHandlerLock(),
           headerLeft: drawerHandlerLock() ? () => <></> : undefined,
-          headerRight: ({ tintColor }) => (
-            <Link href={ROUTS.CART} asChild>
-              <TouchableOpacity>
-                <AntDesign
-                  name='shoppingcart'
-                  size={24}
-                  color={tintColor}
-                  style={{ marginRight: 20 }}
-                />
-              </TouchableOpacity>
-            </Link>
-          ),
+          headerRight: ({ tintColor }) => {
+            const cartNum = store.getState().cart.order.length;
+            return <CartIcon color={tintColor} number={cartNum} />;
+          },
         }}
       >
         <Drawer.Screen
           name='(stack)'
           options={{
             title: "Menu",
-            headerTitle: "Fu dog",
+            headerTitle: "Fudog",
           }}
         />
         <Drawer.Screen

@@ -12,20 +12,32 @@ export interface IMealOrder {
 
 export interface ICartState {
   order: IMealOrder[];
+  amount: number;
 }
 
-const MOCK: IMealOrder[] = [
-  {
-    mealId: "1",
-    imgUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
-    name: "Свинина Гобажоу",
-    price: 480,
-    count: 1,
-  },
-];
+const MOCK: ICartState = {
+  order: [
+    {
+      mealId: "1",
+      imgUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
+      name: "Свинина Гобажоу",
+      price: 480,
+      count: 1,
+      additional: "Соус Габаджо",
+    },
+    {
+      mealId: "2",
+      imgUrl: "https://taplink.st/p/4/1/7/4/41533214.jpg?0",
+      name: "Курица генерала Дзо",
+      price: 470,
+      count: 2,
+    },
+  ],
+  amount: 950,
+};
 
 const initialState: ICartState = {
-  order: MOCK,
+  ...MOCK,
 };
 
 export const cartSlice = createSlice({

@@ -1,16 +1,16 @@
 import { useCallback, useState } from "react";
-import { IMealOrder } from "../../../store/cart/cartSlice";
-import { useOrder } from "../../../utils/hooks/useOrder";
+import { ICartState, IMealOrder } from "../../store/cart/cartSlice";
+import { useOrder } from "../../utils/hooks/useOrder";
 
 interface ICartCOntrol {
-  readonly order: IMealOrder[];
+  readonly cart: ICartState;
   readonly refresh: boolean;
 
   onRefresh(): void;
 }
 
 export const useCartControl = (): ICartCOntrol => {
-  const order = useOrder();
+  const cart = useOrder();
 
   const [refresh, setRefresh] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ export const useCartControl = (): ICartCOntrol => {
   }, []);
 
   return {
-    order,
+    cart,
     refresh,
     onRefresh,
   };

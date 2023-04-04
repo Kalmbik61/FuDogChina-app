@@ -4,7 +4,7 @@ import { COLORS } from "../../constants/Colors";
 
 export default function CartScreen() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.mainBg }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.darkBg }}>
       <Cart />
     </SafeAreaView>
   );

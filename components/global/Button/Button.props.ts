@@ -6,6 +6,7 @@ export interface IButtonProps {
   readonly styles?: FlexStyle;
   readonly children: ReactNode;
   readonly loading?: boolean;
+  readonly green?: boolean;
 
   onPress(): void;
 }

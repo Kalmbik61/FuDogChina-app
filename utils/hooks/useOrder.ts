@@ -1,3 +1,3 @@
 import { useAppSelector } from "../../store/hooks";
 
-export const useOrder = () => useAppSelector((state) => state.cart.order);
+export const useOrder = () => useAppSelector((state) => state.cart);

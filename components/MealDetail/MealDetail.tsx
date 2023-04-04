@@ -16,6 +16,7 @@ import logo from "../../assets/icons/logo.png";
 import Button from "../global/Button/Button";
 import { COLORS } from "../../constants/Colors";
 import ModalAdditional from "../modals/ModalAdditional";
+import { RUB } from "../../constants/Currency";
 
 const cn = stylesOf(styles);
 
@@ -42,9 +43,9 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
 
   const renderPrice = () => {
     if (control.details?.additional) {
-      return `от ${control.details?.price.toFixed(2)} \u20BD`;
+      return `от ${control.details?.price.toFixed(2)} ${RUB}`;
     }
-    return `${control.details?.price.toFixed(2)} \u20BD`;
+    return `${control.details?.price.toFixed(2)} ${RUB}`;
   };
 
   return (
