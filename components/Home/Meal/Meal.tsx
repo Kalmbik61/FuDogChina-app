@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, ImageStyle } from "react-native";
 import { IMealProps } from "./Meal.props";
 import { stylesOf } from "classnames-rn";
 import styles from "./Meal.styles";
@@ -26,7 +26,7 @@ export default function Meal({ ...props }: IMealProps) {
         <View style={cn("imageWrapper")}>
           <Image
             source={{ uri: imageUrl }}
-            style={cn("image")}
+            style={cn("image") as ImageStyle}
             resizeMode='cover'
           />
         </View>
@@ -38,7 +38,7 @@ export default function Meal({ ...props }: IMealProps) {
           <Text style={cn("price")}>{renderPrice()}</Text>
         </View>
 
-        <Button onPress={() => {}} primary>
+        <Button onPress={control.addMeal} primary>
           Добавить
         </Button>
       </View>

@@ -28,13 +28,13 @@ export default function CartItem(props: ICartItemProps) {
           </Text>
         </View>
         <View style={cn("countWrapper")}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={control.minusMealCount}>
             <AntDesign name='minuscircleo' size={20} color={COLORS.primary} />
           </TouchableOpacity>
           <View style={cn("countTextWrapper")}>
             <Text style={cn("count")}>{props.count}</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={control.plusMealCount}>
             <AntDesign name='pluscircleo' size={20} color={COLORS.ok} />
           </TouchableOpacity>
         </View>

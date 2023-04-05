@@ -9,6 +9,13 @@ const styles = StyleSheet.create({
   scrollContainer: {
     gap: 20,
   },
+  linkWrapper: {
+    marginTop: 100,
+  },
+  link: {
+    color: COLORS.primary,
+    textAlign: "center",
+  },
 
   addressWrapper: { gap: 10 },
   addressText: {

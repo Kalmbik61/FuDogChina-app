@@ -2,6 +2,8 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { IMeal, MOCK } from "../Home/useHome.control";
 import { IMealDetailProps } from "./MealDetail.props";
 import { useNavigation } from "expo-router";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cart/cartSlice";
 
 interface IMealDetailsControl {
   readonly details?: IMeal;
@@ -13,11 +15,13 @@ interface IMealDetailsControl {
   onRefresh(): void;
   onSelectedAdditional(a: string, i: number): void;
   onModalHandler(s: boolean): void;
+  addMeal(): void;
 }
 
 export const useMealDetailsControl = (
   props: IMealDetailProps
 ): IMealDetailsControl => {
+  const dispatch = useDispatch();
   const { setOptions } = useNavigation();
   const [details, setDetails] = useState<IMeal>();
   const [loading, setLoading] = useState(true);
@@ -64,6 +68,19 @@ export const useMealDetailsControl = (
     setModalShow(s);
   };
 
+  const addMeal = () => {
+    if (!details) return;
+    dispatch(
+      addToCart({
+        mealId: details.id,
+        name: details.name,
+        imgUrl: details.imageUrl,
+        count: 1,
+        price: details.price,
+      })
+    );
+  };
+
   return {
     details,
     loading,
@@ -74,5 +91,6 @@ export const useMealDetailsControl = (
     onRefresh,
     onSelectedAdditional,
     onModalHandler,
+    addMeal,
   };
 };

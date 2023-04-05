@@ -5,10 +5,13 @@ import { ROUTS } from "../../../utils/routesNames";
 import { AntDesign } from "@expo/vector-icons";
 import { stylesOf } from "classnames-rn";
 import styles from "./CartIcon.styles";
+import { useCartControl } from "../../Cart/useCart.control";
 
 const cn = stylesOf(styles);
 
-export default function CartIcon({ number, color }: ICartIconProps) {
+export default function CartIcon({ color }: ICartIconProps) {
+  const { cart } = useCartControl();
+
   return (
     <Link href={ROUTS.CART} asChild>
       <TouchableOpacity>
@@ -20,9 +23,9 @@ export default function CartIcon({ number, color }: ICartIconProps) {
             style={{ marginRight: 20 }}
           />
         </View>
-        {number && (
+        {cart.order.length > 0 && (
           <View style={cn("numberWrapper")}>
-            <Text style={cn("number")}>{number}</Text>
+            <Text style={cn("number")}>{cart.order.length}</Text>
           </View>
         )}
       </TouchableOpacity>

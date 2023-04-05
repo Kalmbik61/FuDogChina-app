@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { FlatList, ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
 import Filters from "./FIlters/Filters";
 import styles from "./Home.styles";
 import { View } from "react-native";

@@ -5,14 +5,13 @@ export interface IMealOrder {
   readonly mealId: string;
   readonly imgUrl: string;
   readonly price: number;
-  readonly count: number;
   readonly additional?: string;
   readonly name: string;
+  count: number;
 }
 
 export interface ICartState {
   order: IMealOrder[];
-  amount: number;
 }
 
 const MOCK: ICartState = {
@@ -33,11 +32,11 @@ const MOCK: ICartState = {
       count: 2,
     },
   ],
-  amount: 950,
 };
 
 const initialState: ICartState = {
-  ...MOCK,
+  // ...MOCK,
+  order: [],
 };
 
 export const cartSlice = createSlice({
@@ -46,7 +45,7 @@ export const cartSlice = createSlice({
   reducers,
 });
 
-// Action creators are generated for each case reducer function
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, plusMeal, minusMeal, removeFromCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -67,10 +67,7 @@ function RootLayoutNav() {
           drawerLabelStyle: { color: "#FFF" },
           swipeEnabled: !drawerHandlerLock(),
           headerLeft: drawerHandlerLock() ? () => <></> : undefined,
-          headerRight: ({ tintColor }) => {
-            const cartNum = store.getState().cart.order.length;
-            return <CartIcon color={tintColor} number={cartNum} />;
-          },
+          headerRight: ({ tintColor }) => <CartIcon color={tintColor} />,
         }}
       >
         <Drawer.Screen

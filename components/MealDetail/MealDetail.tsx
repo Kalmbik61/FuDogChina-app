@@ -96,27 +96,7 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
         <Text style={cn("price")}>{renderPrice()}</Text>
       </View>
 
-      {/* {control.details.additional && (
-        <Picker
-          selectedValue={
-            control.selectedAdditional &&
-            Object.keys(control.selectedAdditional)[0]
-          }
-          onValueChange={control.onSelectedAdditional}
-          style={{ margin: 0, padding: 0 }}
-        >
-          {control.details.additional.map((item, i) => {
-            const key = Object.keys(item)[0];
-            return <Picker.Item label={key} value={item[key]} key={key} />;
-          })}
-        </Picker>
-      )} */}
-
-      <Button onPress={() => control.onModalHandler(true)} primary>
-        Выбрать
-      </Button>
-
-      <Button onPress={() => {}} primary>
+      <Button onPress={control.addMeal} primary>
         В корзину
       </Button>
     </ScrollView>
