@@ -1,10 +1,15 @@
 import { useDispatch } from "react-redux";
 import { ICartItemProps } from "./CartItem.props";
-import { plusMeal, minusMeal } from "../../../store/cart/cartSlice";
+import {
+  plusMeal,
+  minusMeal,
+  removeFromCart,
+} from "../../../store/cart/cartSlice";
 
 interface ICartItemControl {
   plusMealCount(): void;
   minusMealCount(): void;
+  onDeleteMeal(): void;
 }
 
 export const useCartItemControl = (props: ICartItemProps): ICartItemControl => {
@@ -18,5 +23,13 @@ export const useCartItemControl = (props: ICartItemProps): ICartItemControl => {
     dispatch(minusMeal(props.mealId));
   };
 
-  return { plusMealCount, minusMealCount };
+  const onDeleteMeal = () => {
+    dispatch(removeFromCart(props.mealId));
+  };
+
+  return {
+    plusMealCount,
+    minusMealCount,
+    onDeleteMeal,
+  };
 };

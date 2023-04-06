@@ -2,9 +2,23 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../../../constants/Colors";
 
 const styles = StyleSheet.create({
+  swipeDelete: {
+    backgroundColor: COLORS.primary,
+    flex: 1,
+    borderRadius: 4,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  swipeDelteText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+    textAlign: "right",
+  },
   container: {
     padding: 10,
     borderRadius: 4,
+    backgroundColor: COLORS.darkBg,
     // shadowColor: COLORS.linghtGrey,
     // shadowOffset: { width: 0, height: 1 },
     // shadowOpacity: 0.6,

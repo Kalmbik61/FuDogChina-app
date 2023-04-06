@@ -2,13 +2,17 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../../constants/Colors";
 
 const styles = StyleSheet.create({
-  wrapper: {},
+  wrapper: {
+    flex: 1,
+    backgroundColor: "red",
+  },
 
   errorWrapper: {
     width: "100%",
     marginTop: 30,
     alignItems: "center",
   },
+
   errorImageContainer: {
     borderRadius: 8,
     width: 200,
@@ -71,6 +75,22 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: 20,
     fontWeight: "600",
+  },
+  additionalWrapper: {
+    padding: 10,
+    backgroundColor: COLORS.linghtGrey,
+    borderRadius: 8,
+  },
+  additional: {
+    color: COLORS.mainBg,
+    fontWeight: "500",
+    fontStyle: "italic",
+  },
+  buttonWrapper: {
+    position: "absolute",
+    bottom: 0,
+    left: 20,
+    right: 20,
   },
 });
 

@@ -11,11 +11,13 @@ interface IMealDetailsControl {
   readonly refresh: boolean;
   readonly selectedAdditional?: { [key: string]: number };
   readonly modalShow: boolean;
+  readonly openBottom: boolean;
 
   onRefresh(): void;
   onSelectedAdditional(a: string, i: number): void;
   onModalHandler(s: boolean): void;
   addMeal(): void;
+  onBottomHandler(index?: number): void;
 }
 
 export const useMealDetailsControl = (
@@ -30,6 +32,7 @@ export const useMealDetailsControl = (
     { [key: string]: number } | undefined
   >();
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const [openBottom, setOpenBottom] = useState<boolean>(false);
 
   const getMealDetails = () => {
     const meal = MOCK.find((m) => m.id === props.id);
@@ -81,16 +84,26 @@ export const useMealDetailsControl = (
     );
   };
 
+  const onBottomHandler = (index?: number) => {
+    if (index) {
+      setOpenBottom(false);
+    } else {
+      setOpenBottom(true);
+    }
+  };
+
   return {
     details,
     loading,
     refresh,
     selectedAdditional,
     modalShow,
+    openBottom,
 
     onRefresh,
     onSelectedAdditional,
     onModalHandler,
     addMeal,
+    onBottomHandler,
   };
 };

@@ -19,10 +19,13 @@ export default function Button({
   return (
     <TouchableOpacity onPress={!loading ? onPress : undefined}>
       <View
-        style={cn("wrapper", {
-          ["primary"]: primary,
-          ["green"]: green,
-        })}
+        style={[
+          cn("wrapper", {
+            ["primary"]: primary,
+            ["green"]: green,
+          }),
+          styles,
+        ]}
       >
         {loading ? (
           <ActivityIndicator size={24} color={"#fff"} />
