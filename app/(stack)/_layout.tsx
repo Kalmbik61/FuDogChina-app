@@ -2,8 +2,6 @@ import { Stack } from "expo-router";
 import React from "react";
 import { COLORS } from "../../constants/Colors";
 import { ROUTS } from "../../utils/routesNames";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 export default function _layout() {
   return (
     <Stack
