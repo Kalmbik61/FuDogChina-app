@@ -2,6 +2,7 @@ import React from "react";
 import {
   Image,
   ImageStyle,
+  Pressable,
   RefreshControl,
   ScrollView,
   Text,
@@ -19,6 +20,7 @@ import Button from "../global/Button/Button";
 import { COLORS } from "../../constants/Colors";
 import { RUB } from "../../constants/Currency";
 import BottomSheet from "../global/BottomSheet/BottomSheet";
+import AnimatedCheckbox from "react-native-checkbox-reanimated";
 
 const cn = stylesOf(styles);
 
@@ -110,7 +112,22 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
       </Button>
 
       <BottomSheet onChange={control.onBottomHandler} open={control.openBottom}>
-        <View></View>
+        <View>
+          <Pressable>
+            <AnimatedCheckbox
+              highlightColor='#4444ff'
+              checkmarkColor='#ffffff'
+              boxOutlineColor='#4444ff'
+            />
+          </Pressable>
+          <Pressable>
+            <AnimatedCheckbox
+              highlightColor='#4444ff'
+              checkmarkColor='#ffffff'
+              boxOutlineColor='#4444ff'
+            />
+          </Pressable>
+        </View>
       </BottomSheet>
     </>
   );
