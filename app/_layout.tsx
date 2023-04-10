@@ -73,16 +73,16 @@ function RootLayoutNav() {
           <Drawer.Screen
             name='(stack)'
             options={{
-              title: "Menu",
+              title: "Меню",
               headerTitle: "Fudog",
             }}
           />
           <Drawer.Screen
             name={ROUTS.CONTACTS}
             options={{
-              title: "Contacts",
-              headerTitle: "Contacts",
-              drawerLabel: "Contacts",
+              title: "Контакты",
+              headerTitle: "Контакты",
+              drawerLabel: "Контакты",
             }}
           />
         </Drawer>

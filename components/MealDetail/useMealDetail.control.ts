@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { IMeal, MOCK } from "../Home/useHome.control";
+import { IAdditional, IMeal, MOCK } from "../Home/useHome.control";
 import { IMealDetailProps } from "./MealDetail.props";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
@@ -9,12 +9,12 @@ interface IMealDetailsControl {
   readonly details?: IMeal;
   readonly loading: boolean;
   readonly refresh: boolean;
-  readonly selectedAdditional?: { [key: string]: number };
+  readonly selectedAdditional?: IAdditional;
   readonly modalShow: boolean;
   readonly openBottom: boolean;
 
   onRefresh(): void;
-  onSelectedAdditional(a: string, i: number): void;
+  onSelectedAdditional(i: number): void;
   onModalHandler(s: boolean): void;
   addMeal(): void;
   onBottomHandler(index?: number): void;
@@ -29,14 +29,13 @@ export const useMealDetailsControl = (
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [selectedAdditional, setSelectedAdditional] = useState<
-    { [key: string]: number } | undefined
+    IAdditional | undefined
   >();
   const [modalShow, setModalShow] = useState<boolean>(false);
   const [openBottom, setOpenBottom] = useState<boolean>(false);
 
   const getMealDetails = () => {
     const meal = MOCK.find((m) => m.id === props.id);
-
     setDetails(meal);
   };
 
@@ -61,10 +60,10 @@ export const useMealDetailsControl = (
     setRefresh(false);
   }, []);
 
-  const onSelectedAdditional = (a: string, i: number) => {
+  const onSelectedAdditional = (i: number) => {
     if (!details || !details.additional) return;
-
     setSelectedAdditional(details.additional[i]);
+    setOpenBottom(false);
   };
 
   const onModalHandler = (s: boolean) => {
@@ -79,18 +78,23 @@ export const useMealDetailsControl = (
         name: details.name,
         imgUrl: details.imageUrl,
         count: 1,
-        price: details.price,
+        price: selectedAdditional?.price || details.price,
+        additional: selectedAdditional?.name,
       })
     );
   };
 
-  const onBottomHandler = (index?: number) => {
-    if (index) {
-      setOpenBottom(false);
-    } else {
-      setOpenBottom(true);
-    }
-  };
+  const onBottomHandler = useCallback(
+    (index: number) => {
+      console.log(index);
+      if (index) {
+        setOpenBottom(false);
+      } else {
+        setOpenBottom(true);
+      }
+    },
+    [openBottom]
+  );
 
   return {
     details,

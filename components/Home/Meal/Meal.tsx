@@ -1,10 +1,18 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, ImageStyle } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageStyle,
+  ViewStyle,
+} from "react-native";
 import { IMealProps } from "./Meal.props";
 import { stylesOf } from "classnames-rn";
 import styles from "./Meal.styles";
 import Button from "../../global/Button/Button";
 import { useMealControl } from "./useMeal.control";
+import { RUB } from "../../../constants/Currency";
 
 const cn = stylesOf(styles);
 
@@ -15,9 +23,9 @@ export default function Meal({ ...props }: IMealProps) {
 
   const renderPrice = () => {
     if (additional) {
-      return `от ${price.toFixed(2)} \u20BD`;
+      return `от ${price.toFixed(2)} ${RUB}`;
     }
-    return `${price.toFixed(2)} \u20BD`;
+    return `${price.toFixed(2)} ${RUB}`;
   };
 
   return (
@@ -38,8 +46,11 @@ export default function Meal({ ...props }: IMealProps) {
           <Text style={cn("price")}>{renderPrice()}</Text>
         </View>
 
-        <Button onPress={control.addMeal} primary>
-          Добавить
+        <Button
+          onPress={!!props.additional ? control.toMealDetails : control.addMeal}
+          primary
+        >
+          {!!props.additional ? "Подробнее" : "Добавить"}
         </Button>
       </View>
     </TouchableOpacity>

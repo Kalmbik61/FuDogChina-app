@@ -21,19 +21,22 @@ export const useBottomSheetControl = (
   props: IBottomSheetProps
 ): IBottomSheetControl => {
   const ref = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
+  const snapPoints = useMemo(() => ["10%", "30%"], []);
 
   const handlePresentModalPress = useCallback(() => {
     ref.current?.present();
   }, []);
 
   const handleSheetChanges = useCallback((index: number) => {
+    console.log(index, "====");
     props.onChange(index);
   }, []);
 
   useEffect(() => {
     if (props.open) {
       handlePresentModalPress();
+    } else {
+      // ref.current?.close();
     }
   }, [props.open]);
 

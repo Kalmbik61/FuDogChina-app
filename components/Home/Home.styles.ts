@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     flexWrap: "wrap",
     gap: 10,
   },

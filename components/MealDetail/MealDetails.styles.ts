@@ -92,6 +92,32 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
   },
+
+  bottomContentWrapper: { margin: 20 },
+  typeWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginVertical: 5,
+  },
+  checkbox: {
+    width: 50,
+    height: 50,
+  },
+  typeTextWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  typeTex: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  typePrice: {
+    color: COLORS.primary,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;

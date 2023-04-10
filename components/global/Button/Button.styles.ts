@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
   green: {
     backgroundColor: COLORS.ok,
   },
+  disabled: {
+    opacity: 0.6,
+  },
   text: {
     color: "#fff",
     textAlign: "center",

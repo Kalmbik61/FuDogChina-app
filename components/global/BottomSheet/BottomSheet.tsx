@@ -17,6 +17,7 @@ export default function BottomSheet({ ...props }: IBottomSheetProps) {
       snapPoints={control.snapPoints}
       onChange={control.handleSheetChanges}
       backgroundStyle={{ backgroundColor: COLORS.primary }}
+      enablePanDownToClose
     >
       <BottomSheetView style={cn("wrapper")}>{props.children}</BottomSheetView>
     </BottomSheetModal>

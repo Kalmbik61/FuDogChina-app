@@ -1,4 +1,4 @@
-import React from "react";
+import { useCallback } from "react";
 import {
   Image,
   ImageStyle,
@@ -46,9 +46,10 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
   }
 
   const renderPrice = () => {
-    if (control.details?.additional) {
+    if (control.details?.additional && !control.selectedAdditional) {
       return `от ${control.details?.price.toFixed(2)} ${RUB}`;
-    }
+    } else if (control.selectedAdditional)
+      return `${control.selectedAdditional.price.toFixed(2)} ${RUB}`;
     return `${control.details?.price.toFixed(2)} ${RUB}`;
   };
 
@@ -97,7 +98,9 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
         {control.details.additional && (
           <TouchableOpacity onPress={() => control.onBottomHandler()}>
             <View style={cn("additionalWrapper")}>
-              <Text style={cn("additional")}>Выберите наполнитель</Text>
+              <Text style={cn("additional")}>
+                {control.selectedAdditional?.name || "Выберите наполнитель"}
+              </Text>
             </View>
           </TouchableOpacity>
         )}
@@ -106,27 +109,35 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
       <Button
         onPress={control.addMeal}
         styles={cn("buttonWrapper") as ViewStyle}
+        disabled={!!control.details.additional && !control.selectedAdditional}
         primary
       >
         В корзину
       </Button>
 
       <BottomSheet onChange={control.onBottomHandler} open={control.openBottom}>
-        <View>
-          <Pressable>
-            <AnimatedCheckbox
-              highlightColor='#4444ff'
-              checkmarkColor='#ffffff'
-              boxOutlineColor='#4444ff'
-            />
-          </Pressable>
-          <Pressable>
-            <AnimatedCheckbox
-              highlightColor='#4444ff'
-              checkmarkColor='#ffffff'
-              boxOutlineColor='#4444ff'
-            />
-          </Pressable>
+        <View style={cn("bottomContentWrapper")}>
+          {control.details.additional?.map((item, i) => (
+            <View style={cn("typeWrapper")} key={item.name}>
+              <Pressable
+                style={cn("checkbox")}
+                onPress={() => control.onSelectedAdditional(i)}
+              >
+                <AnimatedCheckbox
+                  checked={control.selectedAdditional?.name === item.name}
+                  highlightColor={COLORS.linghtGrey}
+                  checkmarkColor={COLORS.primary}
+                  boxOutlineColor={COLORS.primary}
+                />
+              </Pressable>
+              <View style={cn("typeTextWrapper")}>
+                <Text style={cn("typeTex")}>{item.name}</Text>
+                <Text style={cn("typePrice")}>
+                  {item.name} {RUB}
+                </Text>
+              </View>
+            </View>
+          ))}
         </View>
       </BottomSheet>
     </>

@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: COLORS.darkBg,
     width: checkWidth(),
-    // shadowColor: "rgba(146, 136, 224, 0.3)",
-    // shadowOffset: { width: 1, height: 1 },
-    // shadowOpacity: 0.8,
-    // shadowRadius: 10,
   },
 
   imageWrapper: {
@@ -52,6 +48,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     textAlign: "center",
+  },
+  hideBtn: {
+    opacity: 0,
   },
 });
 

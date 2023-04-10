@@ -12,8 +12,22 @@ export const reducers = {
         order: [...state.order, action.payload],
       };
     }
+
+    if (
+      find.mealId === action.payload.mealId &&
+      find.additional !== action.payload.additional
+    ) {
+      return {
+        ...state,
+        order: [...state.order, action.payload],
+      };
+    }
+
     const order = state.order.map((item) => {
-      if (item.mealId === action.payload.mealId) {
+      if (
+        item.mealId === action.payload.mealId &&
+        item.additional === action.payload.additional
+      ) {
         return {
           ...item,
           count: item.count + 1,

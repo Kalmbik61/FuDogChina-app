@@ -13,16 +13,18 @@ export default function Button({
   green,
   children,
   loading,
+  disabled,
 
   onPress,
 }: IButtonProps) {
   return (
-    <TouchableOpacity onPress={!loading ? onPress : undefined}>
+    <TouchableOpacity onPress={!loading && !disabled ? onPress : undefined}>
       <View
         style={[
           cn("wrapper", {
             ["primary"]: primary,
             ["green"]: green,
+            ["disabled"]: disabled,
           }),
           styles,
         ]}
