@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { IBottomSheetProps } from "./BottomSheet.props";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { useBottomSheetControl } from "./useBottomSheet.control";
@@ -12,10 +12,9 @@ export default function BottomSheet({ ...props }: IBottomSheetProps) {
   const control = useBottomSheetControl(props);
   return (
     <BottomSheetModal
-      ref={control.ref}
+      ref={props.controlerRef}
       index={1}
       snapPoints={control.snapPoints}
-      onChange={control.handleSheetChanges}
       backgroundStyle={{ backgroundColor: COLORS.primary }}
       enablePanDownToClose
     >

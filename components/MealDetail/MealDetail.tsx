@@ -115,7 +115,7 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
         В корзину
       </Button>
 
-      <BottomSheet onChange={control.onBottomHandler} open={control.openBottom}>
+      <BottomSheet controlerRef={control.bottomRef}>
         <View style={cn("bottomContentWrapper")}>
           {control.details.additional?.map((item, i) => (
             <View style={cn("typeWrapper")} key={item.name}>
@@ -133,7 +133,7 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
               <View style={cn("typeTextWrapper")}>
                 <Text style={cn("typeTex")}>{item.name}</Text>
                 <Text style={cn("typePrice")}>
-                  {item.name} {RUB}
+                  {item.price} {RUB}
                 </Text>
               </View>
             </View>

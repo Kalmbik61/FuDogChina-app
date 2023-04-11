@@ -1,21 +1,27 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { IAdditional, IMeal, MOCK } from "../Home/useHome.control";
 import { IMealDetailProps } from "./MealDetail.props";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cart/cartSlice";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 interface IMealDetailsControl {
   readonly details?: IMeal;
   readonly loading: boolean;
   readonly refresh: boolean;
   readonly selectedAdditional?: IAdditional;
-  readonly modalShow: boolean;
-  readonly openBottom: boolean;
+  readonly bottomRef: MutableRefObject<BottomSheetModal | null>;
 
   onRefresh(): void;
   onSelectedAdditional(i: number): void;
-  onModalHandler(s: boolean): void;
   addMeal(): void;
   onBottomHandler(index?: number): void;
 }
@@ -23,6 +29,7 @@ interface IMealDetailsControl {
 export const useMealDetailsControl = (
   props: IMealDetailProps
 ): IMealDetailsControl => {
+  const bottomRef = useRef<BottomSheetModal>(null);
   const dispatch = useDispatch();
   const { setOptions } = useNavigation();
   const [details, setDetails] = useState<IMeal>();
@@ -31,8 +38,6 @@ export const useMealDetailsControl = (
   const [selectedAdditional, setSelectedAdditional] = useState<
     IAdditional | undefined
   >();
-  const [modalShow, setModalShow] = useState<boolean>(false);
-  const [openBottom, setOpenBottom] = useState<boolean>(false);
 
   const getMealDetails = () => {
     const meal = MOCK.find((m) => m.id === props.id);
@@ -63,18 +68,22 @@ export const useMealDetailsControl = (
   const onSelectedAdditional = (i: number) => {
     if (!details || !details.additional) return;
     setSelectedAdditional(details.additional[i]);
-    setOpenBottom(false);
   };
 
-  const onModalHandler = (s: boolean) => {
-    setModalShow(s);
-  };
+  useEffect(() => {
+    if (!selectedAdditional) return;
+
+    const t = setTimeout(() => bottomRef.current?.close(), 500);
+    return () => clearTimeout(t);
+  }, [selectedAdditional]);
 
   const addMeal = () => {
     if (!details) return;
     dispatch(
       addToCart({
-        mealId: details.id,
+        mealId: selectedAdditional
+          ? details.id + selectedAdditional.name
+          : details.id,
         name: details.name,
         imgUrl: details.imageUrl,
         count: 1,
@@ -84,29 +93,19 @@ export const useMealDetailsControl = (
     );
   };
 
-  const onBottomHandler = useCallback(
-    (index: number) => {
-      console.log(index);
-      if (index) {
-        setOpenBottom(false);
-      } else {
-        setOpenBottom(true);
-      }
-    },
-    [openBottom]
-  );
+  const onBottomHandler = useCallback(() => {
+    bottomRef.current?.present();
+  }, []);
 
   return {
     details,
     loading,
     refresh,
     selectedAdditional,
-    modalShow,
-    openBottom,
+    bottomRef,
 
     onRefresh,
     onSelectedAdditional,
-    onModalHandler,
     addMeal,
     onBottomHandler,
   };

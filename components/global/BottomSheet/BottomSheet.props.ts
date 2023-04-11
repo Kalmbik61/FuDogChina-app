@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { MutableRefObject, ReactNode } from "react";
 
 export interface IBottomSheetProps {
   readonly children: ReactNode;
-  readonly open: boolean;
-
-  onChange(index: number): void;
+  readonly controlerRef: MutableRefObject<BottomSheetModal | null>;
 }
