@@ -27,7 +27,7 @@ export default function Contacts() {
       </View>
       <RoundedText label='Адрес'>Ростов-на-Дону, Донская 30</RoundedText>
       <RoundedText label='Телефон' onPress={() => phoneLink("+79885880334")}>
-        +7-(988)-588-03-34
+        +7(988)-588-03-34
       </RoundedText>
     </View>
   );

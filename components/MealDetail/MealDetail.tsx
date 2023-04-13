@@ -49,7 +49,9 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
     if (control.details?.additional && !control.selectedAdditional) {
       return `от ${control.details?.price.toFixed(2)} ${RUB}`;
     } else if (control.selectedAdditional)
-      return `${control.selectedAdditional.price.toFixed(2)} ${RUB}`;
+      return `${control.selectedAdditional.additionalPriceOption.toFixed(
+        2
+      )} ${RUB}`;
     return `${control.details?.price.toFixed(2)} ${RUB}`;
   };
 
@@ -99,7 +101,8 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
           <TouchableOpacity onPress={() => control.onBottomHandler()}>
             <View style={cn("additionalWrapper")}>
               <Text style={cn("additional")}>
-                {control.selectedAdditional?.name || "Выберите наполнитель"}
+                {control.selectedAdditional?.additionalNameOption ||
+                  "Выберите наполнитель"}
               </Text>
             </View>
           </TouchableOpacity>
@@ -118,22 +121,25 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
       <BottomSheet controlerRef={control.bottomRef}>
         <View style={cn("bottomContentWrapper")}>
           {control.details.additional?.map((item, i) => (
-            <View style={cn("typeWrapper")} key={item.name}>
+            <View style={cn("typeWrapper")} key={item.additionalNameOption}>
               <Pressable
                 style={cn("checkbox")}
                 onPress={() => control.onSelectedAdditional(i)}
               >
                 <AnimatedCheckbox
-                  checked={control.selectedAdditional?.name === item.name}
+                  checked={
+                    control.selectedAdditional?.additionalNameOption ===
+                    item.additionalNameOption
+                  }
                   highlightColor={COLORS.linghtGrey}
                   checkmarkColor={COLORS.primary}
                   boxOutlineColor={COLORS.primary}
                 />
               </Pressable>
               <View style={cn("typeTextWrapper")}>
-                <Text style={cn("typeTex")}>{item.name}</Text>
+                <Text style={cn("typeTex")}>{item.additionalNameOption}</Text>
                 <Text style={cn("typePrice")}>
-                  {item.price} {RUB}
+                  {item.additionalPriceOption} {RUB}
                 </Text>
               </View>
             </View>

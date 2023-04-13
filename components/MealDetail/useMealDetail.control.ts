@@ -12,6 +12,8 @@ import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cart/cartSlice";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { getMealData } from "../../service/getMealData";
+import { Alert } from "react-native";
 
 interface IMealDetailsControl {
   readonly details?: IMeal;
@@ -39,20 +41,27 @@ export const useMealDetailsControl = (
     IAdditional | undefined
   >();
 
-  const getMealDetails = () => {
-    const meal = MOCK.find((m) => m.id === props.id);
-    setDetails(meal);
+  const getMealDetails = async () => {
+    setLoading(true);
+    const data = await getMealData(props.id);
+    if (data instanceof Error) {
+      Alert.alert("Ошибка сервера", "Попробуйте позже");
+      return;
+    }
+    setDetails({
+      id: props.id,
+      name: data.name,
+      imageUrl: data.imageUrl,
+      price: data.price,
+      type: data.category,
+      additional: data.additional,
+      description: data.description,
+    });
+    setLoading(false);
   };
 
   useEffect(() => {
-    //API
     getMealDetails();
-
-    const t = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(t);
   }, []);
 
   useLayoutEffect(() => {
@@ -82,13 +91,13 @@ export const useMealDetailsControl = (
     dispatch(
       addToCart({
         mealId: selectedAdditional
-          ? details.id + selectedAdditional.name
+          ? details.id + selectedAdditional.additionalNameOption
           : details.id,
         name: details.name,
         imgUrl: details.imageUrl,
         count: 1,
-        price: selectedAdditional?.price || details.price,
-        additional: selectedAdditional?.name,
+        price: selectedAdditional?.additionalPriceOption || details.price,
+        additional: selectedAdditional?.additionalNameOption,
       })
     );
   };

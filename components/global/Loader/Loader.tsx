@@ -9,7 +9,7 @@ const cn = stylesOf(styles);
 
 export default function Loader({ styles, size = 25 }: ILoaderProps) {
   return (
-    <View style={[cn("wrapper")]}>
+    <View style={[cn("wrapper"), styles]}>
       <ActivityIndicator color={COLORS.primary} size={size} />
     </View>
   );

@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
 
   orderWrapper: {
     gap: 5,
+    maxWidth: "50%",
   },
   name: {
     fontSize: 14,

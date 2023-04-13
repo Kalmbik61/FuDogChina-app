@@ -13,7 +13,7 @@ export default function MealDetailScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.mainBg }}>
       <Stack.Screen
         options={{
-          title: `Meal ID = ${params.id}`,
+          title: params.title as string,
           headerShown: true,
           headerLeft: ({ tintColor }) => (
             <TouchableOpacity onPress={router.back}>

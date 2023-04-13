@@ -15,6 +15,7 @@ export const useMealControl = (props: IMealProps): IMealControl => {
 
   const toMealDetails = () => {
     router.push(`${ROUTS.MEAL_DETAILS}/${props.id}`);
+    router.setParams({ title: props.name });
   };
 
   const addMeal = () => {

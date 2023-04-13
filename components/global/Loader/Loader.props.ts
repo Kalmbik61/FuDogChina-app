@@ -1,4 +1,6 @@
+import { FlexStyle } from "react-native";
+
 export interface ILoaderProps {
-  readonly styles?: string;
+  readonly styles?: FlexStyle;
   readonly size?: number;
 }

@@ -1,14 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getMeals } from "../../service/getMeals";
+import { Alert } from "react-native";
+import { useFilters } from "../../utils/hooks/useFilters";
 
 export enum TYPE_OF_MEAL {
-  MEAT = "MEAT",
+  ALL = "ALL",
+  MAIN = "MAIN",
   DRINKS = "DRINKS",
+  SOUP = "SOUP",
+  ADDITIONAL = "ADDITIONAL",
+  SALADS = "SALADS",
 }
 
 export interface IAdditional {
-  readonly price: number;
-  readonly name: string;
+  readonly additionalPriceOption: number;
+  readonly additionalNameOption: string;
 }
 
 export interface IMeal {
@@ -23,89 +29,48 @@ export interface IMeal {
 
 interface IHomeControl {
   readonly meals: IMeal[];
+  readonly refresh: boolean;
+
+  onRefresh(): void;
 }
 
-export const MOCK: IMeal[] = [
-  {
-    id: "1",
-    imageUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
-    name: "Свинина Гобажоу",
-    price: 480,
-    type: TYPE_OF_MEAL.MEAT,
-    additional: [
-      { name: "курица", price: 380 },
-      { name: "говядина", price: 480 },
-    ],
-    description:
-      "Блюдо было придумано в 1907 году харбинским поваром Чжэн Вэнем для русских, в большом количестве приезжавших в город в связи со строительством Китайско-Восточной железной дороги. Идею блюда подала его жена, русская по национальности. За основу было взято пекинское блюдо «жареные ломтики свинины», в которое повар добавил сахар, изменив вкус блюда с солёного на сладкий, чтобы оно лучше соответствовало вкусам русских гостей",
-  },
-  {
-    id: "2",
-    imageUrl: "https://taplink.st/p/4/1/7/4/41533214.jpg?0",
-    name: "Курица генерала Дзо",
-    price: 470,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-  {
-    id: "3",
-    imageUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
-    name: "Свинина Гобажоу",
-    price: 480,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-  {
-    id: "4",
-    imageUrl: "https://taplink.st/p/4/1/7/4/41533214.jpg?0",
-    name: "Курица генерала Дзо",
-    price: 470,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-  {
-    id: "10",
-    imageUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
-    name: "Свинина Гобажоу",
-    price: 480,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-  {
-    id: "20",
-    imageUrl: "https://taplink.st/p/4/1/7/4/41533214.jpg?0",
-    name: "Курица генерала Дзо",
-    price: 470,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-  {
-    id: "0300",
-    imageUrl: "https://taplink.st/p/c/7/7/9/41558354.jpg?0",
-    name: "Свинина Гобажоу",
-    price: 480,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-  {
-    id: "40",
-    imageUrl: "https://taplink.st/p/4/1/7/4/41533214.jpg?0",
-    name: "Курица генерала Дзо",
-    price: 470,
-    type: TYPE_OF_MEAL.MEAT,
-  },
-];
-
 export const useHomeControl = (): IHomeControl => {
-  const [meals, setMeals] = useState<IMeal[]>(MOCK);
+  const { activeFilter } = useFilters();
+  const [meals, setMeals] = useState<IMeal[]>([]);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
-  const getData = async () => {
-    const url =
-      "https://tkj0a5e5.api.sanity.io/v2021-10-21/data/query/production?query=*%5B_type%3D%3D%22meals%22%5D%7B%0A%20%20...%0A%7D";
-    const d = await axios(url);
-
-    console.log(d.data.result);
+  const getMealsData = async () => {
+    setRefresh(true);
+    const data = await getMeals(activeFilter);
+    if (data instanceof Error) {
+      Alert.alert("Ошибка сервера", "Попробуйте позже");
+      return;
+    }
+    const mealsArr: IMeal[] = data.map((item) => ({
+      id: item._id,
+      name: item.name,
+      price: item.price,
+      imageUrl: item.imageUrl,
+      additional: item.additional,
+      description: item.description,
+      type: item.category,
+    }));
+    setMeals(mealsArr);
+    setRefresh(false);
   };
 
   useEffect(() => {
-    getData();
+    getMealsData();
+  }, [activeFilter]);
+
+  const onRefresh = useCallback(() => {
+    getMealsData();
   }, []);
 
   return {
     meals,
+    refresh,
+
+    onRefresh,
   };
 };

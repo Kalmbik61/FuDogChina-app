@@ -39,7 +39,9 @@ export default function Meal({ ...props }: IMealProps) {
           />
         </View>
         <View style={cn("textWrapper")}>
-          <Text style={cn("text")}>{name}</Text>
+          <Text style={cn("text")} numberOfLines={1}>
+            {name}
+          </Text>
         </View>
 
         <View style={cn("priceWrapper")}>
