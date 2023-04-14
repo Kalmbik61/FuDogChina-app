@@ -30,6 +30,7 @@ export interface IMeal {
 interface IHomeControl {
   readonly meals: IMeal[];
   readonly refresh: boolean;
+  readonly firstLoad: boolean;
 
   onRefresh(): void;
 }
@@ -38,12 +39,14 @@ export const useHomeControl = (): IHomeControl => {
   const { activeFilter } = useFilters();
   const [meals, setMeals] = useState<IMeal[]>([]);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [firstLoad, setFirstLoad] = useState<boolean>(true);
 
   const getMealsData = async () => {
     setRefresh(true);
     const data = await getMeals(activeFilter);
     if (data instanceof Error) {
       Alert.alert("Ошибка сервера", "Попробуйте позже");
+      setFirstLoad(false);
       return;
     }
     const mealsArr: IMeal[] = data.map((item) => ({
@@ -57,6 +60,7 @@ export const useHomeControl = (): IHomeControl => {
     }));
     setMeals(mealsArr);
     setRefresh(false);
+    setFirstLoad(false);
   };
 
   useEffect(() => {
@@ -70,6 +74,7 @@ export const useHomeControl = (): IHomeControl => {
   return {
     meals,
     refresh,
+    firstLoad,
 
     onRefresh,
   };

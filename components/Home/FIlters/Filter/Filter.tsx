@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { IFilterProps } from "./Filter.props";
 import styles from "./Filter.styles";
 import { stylesOf } from "classnames-rn";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const cn = stylesOf(styles);
 

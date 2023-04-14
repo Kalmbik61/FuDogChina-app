@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { SplashScreen, useRouter, usePathname } from "expo-router";
-import { useEffect } from "react";
+import { SplashScreen, usePathname } from "expo-router";
 import { COLORS } from "../constants/Colors";
 import { Drawer } from "expo-router/drawer";
 import { ROUTS } from "../utils/routesNames";
@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "../store";
 import CartIcon from "../components/global/CartIcon/CartIcon";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import Toast from "react-native-toast-message";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,7 +43,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const path = usePathname();
-  const router = useRouter();
 
   const drawerHandlerLock = () => {
     if (path !== ROUTS.MENU && path !== `/${ROUTS.CONTACTS}`) {
@@ -50,43 +50,47 @@ function RootLayoutNav() {
     } else return false;
   };
   return (
-    <Provider store={store}>
-      <BottomSheetModalProvider>
-        <Drawer
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: COLORS.primary,
-            },
-            headerShadowVisible: false,
-            headerTintColor: "#fff",
-            drawerActiveBackgroundColor: COLORS.primary,
-            drawerContentContainerStyle: { backgroundColor: COLORS.darkBg },
-            drawerStyle: {
-              backgroundColor: COLORS.darkBg,
-            },
-            drawerLabelStyle: { color: "#FFF" },
-            swipeEnabled: !drawerHandlerLock(),
-            headerLeft: drawerHandlerLock() ? () => <></> : undefined,
-            headerRight: ({ tintColor }) => <CartIcon color={tintColor} />,
-          }}
-        >
-          <Drawer.Screen
-            name='(stack)'
-            options={{
-              title: "Меню",
-              headerTitle: "Fudog",
+    <>
+      <Provider store={store}>
+        <BottomSheetModalProvider>
+          <Drawer
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: COLORS.primary,
+              },
+              headerShadowVisible: false,
+              headerTintColor: "#fff",
+              drawerActiveBackgroundColor: COLORS.primary,
+              drawerContentContainerStyle: { backgroundColor: COLORS.darkBg },
+              drawerStyle: {
+                backgroundColor: COLORS.darkBg,
+              },
+              drawerLabelStyle: { color: "#FFF" },
+              swipeEnabled: !drawerHandlerLock(),
+              headerLeft: drawerHandlerLock() ? () => <></> : undefined,
+              headerRight: ({ tintColor }) => <CartIcon color={tintColor} />,
             }}
-          />
-          <Drawer.Screen
-            name={ROUTS.CONTACTS}
-            options={{
-              title: "Контакты",
-              headerTitle: "Контакты",
-              drawerLabel: "Контакты",
-            }}
-          />
-        </Drawer>
-      </BottomSheetModalProvider>
-    </Provider>
+          >
+            <Drawer.Screen
+              name='(stack)'
+              options={{
+                title: "Меню",
+                headerTitle: "Fudog",
+              }}
+            />
+            <Drawer.Screen
+              name={ROUTS.CONTACTS}
+              options={{
+                title: "Контакты",
+                headerTitle: "Контакты",
+                drawerLabel: "Контакты",
+              }}
+            />
+          </Drawer>
+        </BottomSheetModalProvider>
+      </Provider>
+
+      <Toast />
+    </>
   );
 }

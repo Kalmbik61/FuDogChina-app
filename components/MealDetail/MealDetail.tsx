@@ -6,7 +6,6 @@ import {
   RefreshControl,
   ScrollView,
   Text,
-  TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
@@ -21,6 +20,7 @@ import { COLORS } from "../../constants/Colors";
 import { RUB } from "../../constants/Currency";
 import BottomSheet from "../global/BottomSheet/BottomSheet";
 import AnimatedCheckbox from "react-native-checkbox-reanimated";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const cn = stylesOf(styles);
 
@@ -60,15 +60,6 @@ export default function MealDetails({ ...props }: IMealDetailProps) {
       <ScrollView
         contentContainerStyle={cn("container")}
         showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={control.refresh}
-            onRefresh={control.onRefresh}
-            colors={[COLORS.primary]}
-            tintColor={COLORS.primary}
-            size={24}
-          />
-        }
       >
         <View style={cn("imageWrapper")}>
           <Image

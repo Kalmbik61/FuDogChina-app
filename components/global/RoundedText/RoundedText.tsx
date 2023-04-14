@@ -1,7 +1,8 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { IRoundedTextProps } from "./RoundedText.props";
 import { stylesOf } from "classnames-rn";
 import styles from "./RoundedText.styles";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const cn = stylesOf(styles);
 

@@ -1,3 +1,5 @@
-import { PROJECT_SANITY_KEY } from "@env";
+import { PROJECT_SANITY_KEY, TELEGRAM_BOT_TOKEN } from "@env";
 
 export const SANITY_KEY = PROJECT_SANITY_KEY;
+
+export const TG_BOT_TOKEN = TELEGRAM_BOT_TOKEN;

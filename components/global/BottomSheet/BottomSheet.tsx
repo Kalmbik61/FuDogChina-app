@@ -16,6 +16,8 @@ export default function BottomSheet({ ...props }: IBottomSheetProps) {
       index={1}
       snapPoints={control.snapPoints}
       backgroundStyle={{ backgroundColor: COLORS.primary }}
+      keyboardBehavior='extend'
+      keyboardBlurBehavior={"restore"}
       enablePanDownToClose
     >
       <BottomSheetView style={cn("wrapper")}>{props.children}</BottomSheetView>

@@ -52,4 +52,10 @@ export const reducers = {
       order: state.order.filter((or) => or.mealId !== action.payload),
     };
   },
+  clearCart(state: ICartState) {
+    return {
+      ...state,
+      order: [],
+    };
+  },
 };

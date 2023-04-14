@@ -17,19 +17,37 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  addressWrapper: { gap: 10 },
+  addressWrapper: {
+    gap: 10,
+    overflow: "hidden",
+  },
+  addressTitleWrapper: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+  },
   addressText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "500",
   },
-  address: {
-    padding: 10,
-    color: "#fff",
-    borderRadius: 8,
-    backgroundColor: COLORS.mainBg,
+  text: {
+    color: COLORS.linghtGrey,
+    fontSize: 14,
+    fontWeight: "500",
   },
-
+  bottomWrapper: {
+    gap: 10,
+  },
+  inputText: {
+    padding: 10,
+    color: COLORS.darkBg,
+    borderRadius: 8,
+    backgroundColor: COLORS.linghtGrey,
+  },
   amountWrapper: {
     marginVertical: 20,
     paddingVertical: 5,

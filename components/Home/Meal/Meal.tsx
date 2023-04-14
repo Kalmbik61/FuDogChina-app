@@ -1,32 +1,26 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ImageStyle,
-  ViewStyle,
-} from "react-native";
+import React, { memo, useMemo } from "react";
+import { View, Text, Image, ImageStyle } from "react-native";
 import { IMealProps } from "./Meal.props";
 import { stylesOf } from "classnames-rn";
 import styles from "./Meal.styles";
 import Button from "../../global/Button/Button";
 import { useMealControl } from "./useMeal.control";
 import { RUB } from "../../../constants/Currency";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const cn = stylesOf(styles);
 
-export default function Meal({ ...props }: IMealProps) {
+function Meal({ ...props }: IMealProps) {
   const { imageUrl, name, price, additional, type } = props;
 
   const control = useMealControl(props);
 
-  const renderPrice = () => {
+  const renderPrice = useMemo(() => {
     if (additional) {
       return `от ${price.toFixed(2)} ${RUB}`;
     }
     return `${price.toFixed(2)} ${RUB}`;
-  };
+  }, [price, additional]);
 
   return (
     <TouchableOpacity onPress={control.toMealDetails}>
@@ -45,7 +39,7 @@ export default function Meal({ ...props }: IMealProps) {
         </View>
 
         <View style={cn("priceWrapper")}>
-          <Text style={cn("price")}>{renderPrice()}</Text>
+          <Text style={cn("price")}>{renderPrice}</Text>
         </View>
 
         <Button
@@ -58,3 +52,5 @@ export default function Meal({ ...props }: IMealProps) {
     </TouchableOpacity>
   );
 }
+
+export default memo(Meal);

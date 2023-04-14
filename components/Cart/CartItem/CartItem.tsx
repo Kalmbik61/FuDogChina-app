@@ -1,11 +1,4 @@
-import {
-  Alert,
-  Image,
-  ImageStyle,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ImageStyle, Text, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { ICartItemProps } from "./CartItem.props";
 import { useCartItemControl } from "./useCartItem.control";
@@ -14,6 +7,7 @@ import { COLORS } from "../../../constants/Colors";
 import { stylesOf } from "classnames-rn";
 import styles from "./CartItem.styles";
 import { RUB } from "../../../constants/Currency";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const cn = stylesOf(styles);
 

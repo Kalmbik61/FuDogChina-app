@@ -1,6 +1,7 @@
 import sanityClient from "../sanity";
 import { TYPE_OF_MEAL } from "../components/Home/useHome.control";
 import { IFilter } from "../components/Home/FIlters/useFilters.control";
+import tgSender from "../utils/tgSender";
 
 export interface IMealFromSanity {
   readonly _id: string;
@@ -44,6 +45,7 @@ export const getMeals = async (
     return d;
   } catch (e) {
     console.log(e);
+    tgSender.sendMessage(`ERROR while getting meals \n ${e as string}`);
     return new Error(e as string);
   }
 };

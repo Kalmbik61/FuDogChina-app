@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     width: "100%",
     fontSize: 16,
     fontWeight: "600",
+    fontFamily: "SpaceMono",
   },
   descriptionWrapper: {
     marginVertical: 10,
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: 20,
     fontWeight: "600",
+    fontFamily: "SpaceMono",
   },
   additionalWrapper: {
     padding: 10,
@@ -87,10 +89,8 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   buttonWrapper: {
-    position: "absolute",
     bottom: 0,
-    left: 20,
-    right: 20,
+    margin: 20,
   },
 
   bottomContentWrapper: { margin: 20 },

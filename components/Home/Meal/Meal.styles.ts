@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     fontWeight: "500",
+    fontFamily: "SpaceMono",
   },
   priceWrapper: {
     marginBottom: 10,
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     textAlign: "center",
+    fontFamily: "SpaceMono",
   },
   hideBtn: {
     opacity: 0,

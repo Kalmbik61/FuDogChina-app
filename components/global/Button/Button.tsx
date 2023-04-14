@@ -1,9 +1,10 @@
 import React from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { IButtonProps } from "./Button.props";
 import { stylesOf } from "classnames-rn";
 import btnStyles from "./Button.styles";
 import { COLORS } from "../../../constants/Colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const cn = stylesOf(btnStyles);
 

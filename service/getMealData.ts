@@ -1,4 +1,5 @@
 import sanityClient from "../sanity";
+import tgSender from "../utils/tgSender";
 import { IMealFromSanity } from "./getMeals";
 
 export const getMealData = async (
@@ -16,6 +17,7 @@ export const getMealData = async (
     return d;
   } catch (e) {
     console.log(e);
+    tgSender.sendMessage(`ERROR while getting meal data \n ${e as string}`);
     return new Error(e as string);
   }
 };

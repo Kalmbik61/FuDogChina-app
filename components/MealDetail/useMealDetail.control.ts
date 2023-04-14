@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { IAdditional, IMeal, MOCK } from "../Home/useHome.control";
+import { IAdditional, IMeal } from "../Home/useHome.control";
 import { IMealDetailProps } from "./MealDetail.props";
 import { useNavigation } from "expo-router";
 import { useDispatch } from "react-redux";
@@ -18,11 +18,9 @@ import { Alert } from "react-native";
 interface IMealDetailsControl {
   readonly details?: IMeal;
   readonly loading: boolean;
-  readonly refresh: boolean;
   readonly selectedAdditional?: IAdditional;
   readonly bottomRef: MutableRefObject<BottomSheetModal | null>;
 
-  onRefresh(): void;
   onSelectedAdditional(i: number): void;
   addMeal(): void;
   onBottomHandler(index?: number): void;
@@ -36,7 +34,6 @@ export const useMealDetailsControl = (
   const { setOptions } = useNavigation();
   const [details, setDetails] = useState<IMeal>();
   const [loading, setLoading] = useState(true);
-  const [refresh, setRefresh] = useState(false);
   const [selectedAdditional, setSelectedAdditional] = useState<
     IAdditional | undefined
   >();
@@ -67,12 +64,6 @@ export const useMealDetailsControl = (
   useLayoutEffect(() => {
     setOptions({ headerTitle: details?.name });
   }, [props.id, details]);
-
-  const onRefresh = useCallback(() => {
-    setRefresh(true);
-    // refetch();
-    setRefresh(false);
-  }, []);
 
   const onSelectedAdditional = (i: number) => {
     if (!details || !details.additional) return;
@@ -109,11 +100,9 @@ export const useMealDetailsControl = (
   return {
     details,
     loading,
-    refresh,
     selectedAdditional,
     bottomRef,
 
-    onRefresh,
     onSelectedAdditional,
     addMeal,
     onBottomHandler,

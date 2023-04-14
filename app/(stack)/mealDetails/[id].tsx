@@ -1,9 +1,10 @@
 import { useSearchParams, useRouter, Stack } from "expo-router";
-import { SafeAreaView, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native";
 import { COLORS } from "../../../constants/Colors";
 import MealDetails from "../../../components/MealDetail/MealDetail";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../../../components/global/Button/Button";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function MealDetailScreen() {
   const params = useSearchParams();
